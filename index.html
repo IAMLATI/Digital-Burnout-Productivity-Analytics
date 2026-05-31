@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productivity Predictor</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f8;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 350px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 8px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Productivity Predictor</h2>
+
+    <input type="number" id="deep_work_hours" placeholder="Deep Work Hours">
+    <input type="number" id="focus_sessions" placeholder="Focus Sessions">
+    <input type="number" id="concentration_score" placeholder="Concentration Score">
+    <input type="number" id="task_completion_rate" placeholder="Task Completion Rate">
+    <input type="number" id="motivation_level" placeholder="Motivation Level">
+
+    <button onclick="predict()">Predict</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function predict() {
+    // Collect user input
+    let data = [
+        Number(document.getElementById("deep_work_hours").value),
+        Number(document.getElementById("focus_sessions").value),
+        Number(document.getElementById("concentration_score").value),
+        Number(document.getElementById("task_completion_rate").value),
+        Number(document.getElementById("motivation_level").value)
+    ];
+
+    fetch("https://digital-burnout-productivity-analytics.onrender.com/predict", {   // 🔥 CHANGE THIS
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ features: data })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("result").innerText =
+            "Predicted Score: " + data.prediction.toFixed(2);
+    })
+    .catch(error => {
+        document.getElementById("result").innerText =
+            "Error connecting to model";
+    });
+}
+</script>
+
+</body>
+</html>

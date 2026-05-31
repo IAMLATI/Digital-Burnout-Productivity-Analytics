@@ -3,7 +3,7 @@ import joblib
 
 app = Flask(__name__)
 
-model = joblib.load("/workspaces/Digital-Burnout-Productivity-Analytics/XGBoost_model.pkl")
+model = joblib.load("XGBoost_model.pkl")
 
 @app.route("/predict", methods=["POST"])
 def predict():
