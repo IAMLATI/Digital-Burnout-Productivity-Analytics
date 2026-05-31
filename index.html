@@ -10,141 +10,270 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Olamide Bamigbola — Data Scientist" />
 <meta property="og:description" content="London-based data scientist specialising in NLP/LLM, predictive modelling and responsible AI." />
-<meta property="og:url" content="https://www.yourdomain.com" />
+<meta property="og:url" content="https://www.olabam.com" />
 <!-- <meta property="og:image" content="https://www.yourdomain.com/assets/photo.jpg" /> -->
-<link rel="canonical" href="https://www.yourdomain.com" />
+<link rel="canonical" href="https://www.olabam.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
+
  :root{
+
    --ink:#1a1714;
+
    --ink-soft:#5c554d;
+
    --paper:#f4f0e9;
+
    --paper-2:#ece7dd;
+
    --line:#d8d0c2;
+
    --accent:#9a3b1b;
+
    --accent-2:#244536;
+
    --max:1180px;
+
  }
+
  *{box-sizing:border-box;margin:0;padding:0}
+
  html{scroll-behavior:smooth}
+
  body{
+
    font-family:"Spline Sans",system-ui,sans-serif;
+
    background:var(--paper);
+
    color:var(--ink);
+
    line-height:1.6;
+
    -webkit-font-smoothing:antialiased;
+
    overflow-x:hidden;
+
  }
+
  h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.05;letter-spacing:-0.02em}
+
  a{color:inherit;text-decoration:none}
+
  img{max-width:100%;display:block}
+
  ::selection{background:var(--accent);color:var(--paper)}
+
  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+
  .eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:600}
+
  header{position:fixed;top:0;left:0;right:0;z-index:50;
+
    background:rgba(244,240,233,.78);backdrop-filter:blur(10px);
+
    border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+
  header.scrolled{border-color:var(--line)}
+
  nav{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:var(--max);margin:0 auto;padding:0 28px}
+
  .logo{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+
  .logo span{color:var(--accent)}
+
  .nav-links{display:flex;gap:34px;align-items:center}
+
  .nav-links a{font-size:.9rem;color:var(--ink-soft);position:relative;transition:color .2s}
+
  .nav-links a:hover{color:var(--ink)}
+
  .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--accent);transition:width .25s}
+
  .nav-links a:hover::after{width:100%}
+
  .nav-cta{border:1px solid var(--ink);padding:9px 18px;border-radius:30px;color:var(--ink)!important}
+
  .nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+
  .nav-cta::after{display:none}
+
  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0}
+
  .burger span{width:24px;height:2px;background:var(--ink);transition:.3s}
+
  .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:72px}
+
  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+
    background:
+
      radial-gradient(60% 50% at 80% 20%, rgba(154,59,27,.10), transparent 70%),
+
      radial-gradient(50% 60% at 10% 90%, rgba(36,69,54,.10), transparent 70%);}
+
  .hero-grid{display:grid;grid-template-columns:1.3fr .85fr;gap:60px;align-items:center;width:100%}
+
  .hero-hello{font-style:italic;font-family:"Fraunces",serif;font-size:1.3rem;color:var(--ink-soft);margin-bottom:.4rem}
+
  .hero h1{font-size:clamp(3rem,8vw,6.2rem);margin:.2rem 0 1.2rem}
+
  .hero h2{font-family:"Spline Sans",sans-serif;font-weight:500;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--accent-2);letter-spacing:-.01em;margin-bottom:1.4rem}
+
  .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:42ch;margin-bottom:2.2rem}
+
  .btn-row{display:flex;gap:14px;flex-wrap:wrap}
+
  .btn{padding:13px 26px;border-radius:32px;font-size:.95rem;font-weight:500;transition:transform .2s,background .2s,color .2s;cursor:pointer;border:1px solid var(--ink)}
+
  .btn-primary{background:var(--ink);color:var(--paper)}
+
  .btn-primary:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+
  .btn-ghost{background:transparent;color:var(--ink)}
+
  .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+
  .portrait{position:relative}
+
  .portrait .frame{aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+
    background:linear-gradient(135deg,var(--paper-2),#ddd5c6);
+
    border:1px solid var(--line);box-shadow:18px 22px 0 -2px rgba(154,59,27,.14)}
+
  .portrait .frame img{width:100%;height:100%;object-fit:cover}
+
  .portrait .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+
    color:var(--ink-soft);font-size:.85rem;text-align:center;padding:20px;font-style:italic;font-family:"Fraunces",serif}
+
  section{padding:120px 0;position:relative}
+
  .sec-head{margin-bottom:56px}
+
  .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin-top:.5rem}
+
  .sec-head .eyebrow{display:block;margin-bottom:.3rem}
+
  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+
  .about-grid p{font-size:1.15rem;color:var(--ink-soft);margin-bottom:1.2rem}
+
  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;border-top:1px solid var(--line);padding-top:36px}
+
  .stat .num{font-family:"Fraunces",serif;font-size:2.6rem;color:var(--accent)}
+
  .stat .lab{font-size:.85rem;color:var(--ink-soft);letter-spacing:.04em}
+
  .projects{display:grid;gap:0;border-top:1px solid var(--line)}
+
  .project{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:baseline;
+
    padding:38px 0;border-bottom:1px solid var(--line);transition:padding-left .3s,background .3s}
+
  .project:hover{padding-left:18px;background:var(--paper-2)}
+
  .project .pnum{font-family:"Fraunces",serif;color:var(--accent);font-size:1.1rem}
+
  .project h3{font-size:1.7rem;margin-bottom:.3rem}
+
  .project .org{font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-2);margin-bottom:.7rem}
+
  .project p{color:var(--ink-soft);max-width:62ch}
+
  .project .link{white-space:nowrap;font-weight:500;border-bottom:1.5px solid var(--accent);padding-bottom:2px;align-self:center;transition:gap .2s}
+
  .project .link:hover{color:var(--accent)}
+
  .muted-link{color:var(--ink-soft);font-style:italic;align-self:center}
+
  .exp-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+
  .exp-col h3.col-title{font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-family:"Spline Sans",sans-serif;font-weight:600;margin-bottom:28px}
+
  .job{padding:22px 0;border-top:1px solid var(--line)}
+
  .job .top{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+
  .job h4{font-size:1.2rem}
+
  .job .date{font-size:.82rem;color:var(--ink-soft);white-space:nowrap}
+
  .job .place{font-size:.92rem;color:var(--ink-soft);margin-top:.25rem}
+
  .edu{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+
  .edu-card{background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:30px}
+
  .edu-card h3{font-size:1.3rem;margin-bottom:.3rem}
+
  .edu-card .school{color:var(--accent-2);font-weight:500;margin-bottom:1rem}
+
  .edu-card .meta{font-size:.85rem;color:var(--ink-soft);line-height:1.8}
+
  .awards{display:grid;gap:0;border-top:1px solid var(--line)}
+
  .award{display:grid;grid-template-columns:1fr auto;gap:30px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline}
+
  .award h4{font-size:1.25rem}
+
  .award .by{font-size:.9rem;color:var(--ink-soft);margin-top:.2rem}
+
  .award .yr{font-family:"Fraunces",serif;color:var(--accent);font-size:1.1rem;white-space:nowrap}
+
  #contact{background:var(--accent-2);color:var(--paper);text-align:center}
+
  #contact .eyebrow{color:#e8b59a}
+
  #contact h2{font-size:clamp(2.4rem,6vw,4.2rem);margin:.4rem 0 1.2rem;color:var(--paper)}
+
  #contact p{font-size:1.15rem;color:#cdd8d1;max-width:48ch;margin:0 auto 2.4rem}
+
  .contact-btn{display:inline-block;background:var(--paper);color:var(--accent-2);padding:16px 40px;border-radius:34px;font-weight:600;font-size:1.05rem;transition:transform .2s,background .2s}
+
  .contact-btn:hover{transform:translateY(-3px);background:#fff}
+
  .socials{margin-top:34px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
+
  .socials a{color:#cdd8d1;font-size:.95rem;border-bottom:1px solid transparent;padding-bottom:2px}
+
  .socials a:hover{color:var(--paper);border-color:var(--paper)}
+
  footer{background:var(--accent-2);color:#9fb1a7;text-align:center;padding:30px 0;font-size:.85rem;border-top:1px solid rgba(255,255,255,.12)}
+
  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+
  .reveal.in{opacity:1;transform:none}
+
  @media(max-width:880px){
+
    .hero-grid,.about-grid,.exp-cols{grid-template-columns:1fr;gap:40px}
+
    .edu{grid-template-columns:1fr}
+
    .portrait{max-width:340px}
+
    .project{grid-template-columns:auto 1fr;gap:20px}
+
    .project .link,.muted-link{grid-column:2}
+
    section{padding:84px 0}
+
    .nav-links{position:fixed;inset:72px 0 auto 0;background:var(--paper);flex-direction:column;
+
      gap:0;padding:0;border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s}
+
    .nav-links.open{max-height:340px}
+
    .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
+
    .nav-cta{margin:14px 28px;text-align:center}
+
    .burger{display:flex}
+
  }
 </style>
 </head>
@@ -152,7 +281,7 @@
 <!-- ===================== NAV ===================== -->
 <header id="top">
 <nav class="wrap">
-<a href="#top" class="logo">Olamide<span>Bamigbola</span>.</a>
+<a href="#top" class="logo">Olamide<span> Bamigbola</span></a>
 <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 <div class="nav-links" id="navLinks">
 <a href="#about">About</a>
@@ -233,6 +362,15 @@
 <p>A fine-tuned BERT pipeline (HuggingFace Transformers, spaCy) analysing 15,000+ public health guidance documents to flag clinical-terminology inconsistencies &mdash; improving policy alignment by 25%.</p>
 </div>
 <span class="muted-link">Case study soon</span>
+</article>
+<article class="project reveal">
+<span class="pnum">04</span>
+<div>
+<h3>Digital Burnout &amp; Productivity Predictor</h3>
+<p class="org">Independent Project &middot; Regression &amp; Wellbeing Analytics</p>
+<p>A regression model that predicts workplace productivity from digital-behaviour and wellbeing signals &mdash; burnout risk, social-media hours, app-switching, deep-work hours, focus and motivation &mdash; served via a live API and an interactive web tool that returns an instant prediction.</p>
+</div>
+<a href="Digital_Burnout_Regression.html" class="link">Try the predictor &rarr;</a>
 </article>
 </div>
 </div>
@@ -322,7 +460,6 @@
 <p>I'm always open to engaging discussions, collaborative ideas, and exciting opportunities. Based in London &mdash; feel free to reach out.</p>
 <a href="mailto:abdullhateef@gmail.com" class="contact-btn">Say Hello</a>
 <div class="socials">
-<!-- Add your real profile URLs below -->
 <a href="https://www.linkedin.com/in/olamidebamigbola">LinkedIn</a>
 <a href="https://github.com/IAMLATI">GitHub</a>
 <a href="mailto:abdullhateef@gmail.com">Email</a>
@@ -331,20 +468,35 @@
 </section>
 <footer>&copy; <span id="year"></span> Olamide Bamigbola. All rights reserved.</footer>
 <script>
+
  const header = document.getElementById('top');
+
  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10));
+
  const burger = document.getElementById('burger');
+
  const navLinks = document.getElementById('navLinks');
+
  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
  const io = new IntersectionObserver((entries) => {
+
    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+
  }, { threshold:.12 });
+
  document.querySelectorAll('.reveal').forEach((el,i) => {
+
    el.style.transitionDelay = (i % 4 * 0.08) + 's';
+
    io.observe(el);
+
  });
+
  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
+ 
