@@ -1,179 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Productivity Predictor</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- ============================================================= -->
+<!--  EDIT THESE META TAGS WITH YOUR OWN DETAILS                   -->
+<!-- ============================================================= -->
+<title>Your Name — Title / Role</title>
+<meta name="author" content="Your Name" />
+<meta name="description" content="Personal website of Your Name — a short one-line description of what you do." />
+<meta name="keywords" content="Your Name, your field, your profession" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Your Name — Title / Role" />
+<meta property="og:description" content="Personal website of Your Name." />
+<meta property="og:url" content="https://www.yourdomain.com" />
+<!-- <meta property="og:image" content="https://www.yourdomain.com/assets/photo.jpg" /> -->
+<link rel="canonical" href="https://www.yourdomain.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-
-body{
-
-    font-family: Arial, sans-serif;
-
-    background:#f4f6f8;
-
-    text-align:center;
-
-    margin-top:50px;
-
-}
-
-.container{
-
-    background:white;
-
-    width:400px;
-
-    margin:auto;
-
-    padding:30px;
-
-    border-radius:10px;
-
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-
-}
-
-input{
-
-    width:90%;
-
-    padding:10px;
-
-    margin:8px 0;
-
-}
-
-button{
-
-    width:95%;
-
-    padding:12px;
-
-    background:#007bff;
-
-    color:white;
-
-    border:none;
-
-    cursor:pointer;
-
-}
-
-button:hover{
-
-    background:#0056b3;
-
-}
-
-#result{
-
-    margin-top:20px;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-}
+ :root{
+   --ink:#1a1714;          /* near-black warm text */
+   --ink-soft:#5c554d;     /* muted text */
+   --paper:#f4f0e9;        /* warm paper background */
+   --paper-2:#ece7dd;      /* slightly darker panel */
+   --line:#d8d0c2;         /* hairline rules */
+   --accent:#9a3b1b;       /* terracotta accent */
+   --accent-2:#244536;     /* deep green */
+   --max:1180px;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ html{scroll-behavior:smooth}
+ body{
+   font-family:"Spline Sans",system-ui,sans-serif;
+   background:var(--paper);
+   color:var(--ink);
+   line-height:1.6;
+   -webkit-font-smoothing:antialiased;
+   overflow-x:hidden;
+ }
+ h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.05;letter-spacing:-0.02em}
+ a{color:inherit;text-decoration:none}
+ img{max-width:100%;display:block}
+ ::selection{background:var(--accent);color:var(--paper)}
+ .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+ .eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:600}
+ /* ---------- NAV ---------- */
+ header{position:fixed;top:0;left:0;right:0;z-index:50;
+   background:rgba(244,240,233,.78);backdrop-filter:blur(10px);
+   border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+ header.scrolled{border-color:var(--line)}
+ nav{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:var(--max);margin:0 auto;padding:0 28px}
+ .logo{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+ .logo span{color:var(--accent)}
+ .nav-links{display:flex;gap:34px;align-items:center}
+ .nav-links a{font-size:.9rem;color:var(--ink-soft);position:relative;transition:color .2s}
+ .nav-links a:hover{color:var(--ink)}
+ .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--accent);transition:width .25s}
+ .nav-links a:hover::after{width:100%}
+ .nav-cta{border:1px solid var(--ink);padding:9px 18px;border-radius:30px;color:var(--ink)!important}
+ .nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+ .nav-cta::after{display:none}
+ .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0}
+ .burger span{width:24px;height:2px;background:var(--ink);transition:.3s}
+ /* ---------- HERO ---------- */
+ .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:72px}
+ .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+   background:
+     radial-gradient(60% 50% at 80% 20%, rgba(154,59,27,.10), transparent 70%),
+     radial-gradient(50% 60% at 10% 90%, rgba(36,69,54,.10), transparent 70%);}
+ .hero-grid{display:grid;grid-template-columns:1.3fr .85fr;gap:60px;align-items:center;width:100%}
+ .hero-hello{font-style:italic;font-family:"Fraunces",serif;font-size:1.3rem;color:var(--ink-soft);margin-bottom:.4rem}
+ .hero h1{font-size:clamp(3rem,8vw,6.2rem);margin:.2rem 0 1.2rem}
+ .hero h2{font-family:"Spline Sans",sans-serif;font-weight:500;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--accent-2);letter-spacing:-.01em;margin-bottom:1.4rem}
+ .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:38ch;margin-bottom:2.2rem}
+ .btn-row{display:flex;gap:14px;flex-wrap:wrap}
+ .btn{padding:13px 26px;border-radius:32px;font-size:.95rem;font-weight:500;transition:transform .2s,background .2s,color .2s;cursor:pointer;border:1px solid var(--ink)}
+ .btn-primary{background:var(--ink);color:var(--paper)}
+ .btn-primary:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+ .btn-ghost{background:transparent;color:var(--ink)}
+ .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+ .portrait{position:relative}
+ .portrait .frame{aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+   background:linear-gradient(135deg,var(--paper-2),#ddd5c6);
+   border:1px solid var(--line);box-shadow:18px 22px 0 -2px rgba(154,59,27,.14)}
+ .portrait .frame img{width:100%;height:100%;object-fit:cover}
+ .portrait .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+   color:var(--ink-soft);font-size:.85rem;text-align:center;padding:20px;font-style:italic;font-family:"Fraunces",serif}
+ /* ---------- SECTIONS ---------- */
+ section{padding:120px 0;position:relative}
+ .sec-head{margin-bottom:56px}
+ .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin-top:.5rem}
+ .sec-head .eyebrow{display:block;margin-bottom:.3rem}
+ /* About */
+ .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+ .about-grid p{font-size:1.15rem;color:var(--ink-soft);margin-bottom:1.2rem}
+ .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;border-top:1px solid var(--line);padding-top:36px}
+ .stat .num{font-family:"Fraunces",serif;font-size:2.6rem;color:var(--accent)}
+ .stat .lab{font-size:.85rem;color:var(--ink-soft);letter-spacing:.04em}
+ /* Projects */
+ .projects{display:grid;gap:0;border-top:1px solid var(--line)}
+ .project{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:baseline;
+   padding:38px 0;border-bottom:1px solid var(--line);transition:padding-left .3s,background .3s}
+ .project:hover{padding-left:18px;background:var(--paper-2)}
+ .project .pnum{font-family:"Fraunces",serif;color:var(--accent);font-size:1.1rem}
+ .project h3{font-size:1.7rem;margin-bottom:.3rem}
+ .project .org{font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-2);margin-bottom:.7rem}
+ .project p{color:var(--ink-soft);max-width:60ch}
+ .project .link{white-space:nowrap;font-weight:500;border-bottom:1.5px solid var(--accent);padding-bottom:2px;align-self:center;transition:gap .2s}
+ .project .link:hover{color:var(--accent)}
+ .muted-link{color:var(--ink-soft);font-style:italic;align-self:center}
+ /* Experience */
+ .exp-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+ .exp-col h3.col-title{font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-family:"Spline Sans",sans-serif;font-weight:600;margin-bottom:28px}
+ .job{padding:22px 0;border-top:1px solid var(--line)}
+ .job .top{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+ .job h4{font-size:1.2rem}
+ .job .date{font-size:.82rem;color:var(--ink-soft);white-space:nowrap}
+ .job .place{font-size:.92rem;color:var(--ink-soft);margin-top:.25rem}
+ /* Education */
+ .edu{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+ .edu-card{background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:30px}
+ .edu-card h3{font-size:1.3rem;margin-bottom:.3rem}
+ .edu-card .school{color:var(--accent-2);font-weight:500;margin-bottom:1rem}
+ .edu-card .meta{font-size:.85rem;color:var(--ink-soft);line-height:1.8}
+ /* Awards */
+ .awards{display:grid;gap:0;border-top:1px solid var(--line)}
+ .award{display:grid;grid-template-columns:1fr auto;gap:30px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline}
+ .award h4{font-size:1.25rem}
+ .award .by{font-size:.9rem;color:var(--ink-soft);margin-top:.2rem}
+ .award .yr{font-family:"Fraunces",serif;color:var(--accent);font-size:1.1rem;white-space:nowrap}
+ /* Contact */
+ #contact{background:var(--accent-2);color:var(--paper);text-align:center}
+ #contact .eyebrow{color:#e8b59a}
+ #contact h2{font-size:clamp(2.4rem,6vw,4.2rem);margin:.4rem 0 1.2rem;color:var(--paper)}
+ #contact p{font-size:1.15rem;color:#cdd8d1;max-width:48ch;margin:0 auto 2.4rem}
+ .contact-btn{display:inline-block;background:var(--paper);color:var(--accent-2);padding:16px 40px;border-radius:34px;font-weight:600;font-size:1.05rem;transition:transform .2s,background .2s}
+ .contact-btn:hover{transform:translateY(-3px);background:#fff}
+ .socials{margin-top:34px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
+ .socials a{color:#cdd8d1;font-size:.95rem;border-bottom:1px solid transparent;padding-bottom:2px}
+ .socials a:hover{color:var(--paper);border-color:var(--paper)}
+ footer{background:var(--accent-2);color:#9fb1a7;text-align:center;padding:30px 0;font-size:.85rem;border-top:1px solid rgba(255,255,255,.12)}
+ /* reveal animation */
+ .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+ .reveal.in{opacity:1;transform:none}
+ /* ---------- RESPONSIVE ---------- */
+ @media(max-width:880px){
+   .hero-grid,.about-grid,.exp-cols{grid-template-columns:1fr;gap:40px}
+   .edu{grid-template-columns:1fr}
+   .portrait{max-width:340px}
+   .project{grid-template-columns:auto 1fr;gap:20px}
+   .project .link,.muted-link{grid-column:2}
+   section{padding:84px 0}
+   .nav-links{position:fixed;inset:72px 0 auto 0;background:var(--paper);flex-direction:column;
+     gap:0;padding:0;border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s}
+   .nav-links.open{max-height:340px}
+   .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
+   .nav-cta{margin:14px 28px;text-align:center}
+   .burger{display:flex}
+ }
 </style>
 </head>
 <body>
-<div class="container">
-<h2>Productivity Predictor</h2>
-<input type="number" id="burnout_risk" placeholder="Burnout Risk">
-<input type="number" id="social_media_hours" placeholder="Social Media Hours">
-<input type="number" id="app_switch_frequency" placeholder="App Switch Frequency">
-<input type="number" id="distraction_burden_work" placeholder="Distraction Burden Work">
-<input type="number" id="deep_work_hours" placeholder="Deep Work Hours">
-<input type="number" id="focus_sessions" placeholder="Focus Sessions">
-<input type="number" id="concentration_score" placeholder="Concentration Score">
-<input type="number" id="task_completion_rate" placeholder="Task Completion Rate">
-<input type="number" id="motivation_level" placeholder="Motivation Level">
-<button onclick="predict()">Predict</button>
-<div id="result"></div>
+<!-- ===================== NAV ===================== -->
+<header id="top">
+<nav class="wrap">
+<a href="#top" class="logo">Your<span>Name</span>.</a>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+<div class="nav-links" id="navLinks">
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#experience">Experience</a>
+<a href="#education">Education</a>
+<a href="#contact" class="nav-cta">Contact</a>
 </div>
+</nav>
+</header>
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+<div class="wrap hero-grid">
+<div class="hero-text reveal">
+<p class="hero-hello">Hello, I'm</p>
+<h1>Your Name</h1>
+<h2>Your Title / Professional Role</h2>
+<p class="lead">A short, punchy sentence describing what you do and the value you bring.</p>
+<div class="btn-row">
+<a href="#about" class="btn btn-primary">Learn more</a>
+<a href="#contact" class="btn btn-ghost">Get in touch</a>
+<!-- Put your CV in /assets and update the link below -->
+<a href="assets/CV.pdf" class="btn btn-ghost">Access CV</a>
+</div>
+</div>
+<div class="portrait reveal">
+<div class="frame">
+<!-- Replace the placeholder with: <img src="assets/photo.jpg" alt="Portrait of Your Name" /> -->
+<div class="placeholder">Add your photo at<br>assets/photo.jpg</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">About</span><h2>A bit about me</h2></div>
+<div class="about-grid">
+<div class="reveal">
+<p>Write two or three sentences about your background, what drives your work, and the kinds of problems you like to solve. Keep it human and specific.</p>
+<p>Mention notable organizations you've worked with, your areas of expertise, and what someone can expect when they collaborate with you.</p>
+</div>
+<div class="stats reveal">
+<div class="stat"><div class="num">9+</div><div class="lab">Years of experience</div></div>
+<div class="stat"><div class="num">20+</div><div class="lab">Projects delivered</div></div>
+<div class="stat"><div class="num">3</div><div class="lab">Continents worked across</div></div>
+<div class="stat"><div class="num">∞</div><div class="lab">Curiosity</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">Selected Work</span><h2>Recent Projects</h2></div>
+<div class="projects">
+<article class="project reveal">
+<span class="pnum">01</span>
+<div>
+<h3>Project Title One</h3>
+<p class="org">Organization · Team</p>
+<p>One or two sentences describing the project, your role, and the impact it had.</p>
+</div>
+<a href="#" class="link">Explore →</a>
+</article>
+<article class="project reveal">
+<span class="pnum">02</span>
+<div>
+<h3>Project Title Two</h3>
+<p class="org">Organization · Team</p>
+<p>One or two sentences describing the project, your role, and the impact it had.</p>
+</div>
+<a href="#" class="link">Access →</a>
+</article>
+<article class="project reveal">
+<span class="pnum">03</span>
+<div>
+<h3>Project Title Three</h3>
+<p class="org">Organization · Team</p>
+<p>One or two sentences describing the project, your role, and the impact it had.</p>
+</div>
+<span class="muted-link">Coming soon</span>
+</article>
+</div>
+</div>
+</section>
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">Career</span><h2>Experience</h2></div>
+<div class="exp-cols">
+<div class="exp-col reveal">
+<h3 class="col-title">Professional</h3>
+<div class="job">
+<div class="top"><h4>Your Job Title</h4><span class="date">Jan 2023 – Present</span></div>
+<p class="place">Company / Organization · Department</p>
+</div>
+<div class="job">
+<div class="top"><h4>Previous Role</h4><span class="date">2020 – 2022</span></div>
+<p class="place">Company / Organization · Department</p>
+</div>
+<div class="job">
+<div class="top"><h4>Earlier Role</h4><span class="date">2018 – 2019</span></div>
+<p class="place">Company / Organization · Department</p>
+</div>
+</div>
+<div class="exp-col reveal">
+<h3 class="col-title">Academic &amp; Research</h3>
+<div class="job">
+<div class="top"><h4>Research / Teaching Role</h4><span class="date">2022 – Present</span></div>
+<p class="place">University / Institution</p>
+</div>
+<div class="job">
+<div class="top"><h4>Another Role</h4><span class="date">2019 – 2023</span></div>
+<p class="place">University / Institution</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================== EDUCATION ===================== -->
+<section id="education">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">Background</span><h2>Education</h2></div>
+<div class="edu">
+<div class="edu-card reveal">
+<h3>Degree &amp; Field</h3>
+<p class="school">University Name</p>
+<p class="meta">Year of graduation<br>Honors / GPA<br>City, Country</p>
+</div>
+<div class="edu-card reveal">
+<h3>Degree &amp; Field</h3>
+<p class="school">University Name</p>
+<p class="meta">Year of graduation<br>Honors / GPA<br>City, Country</p>
+</div>
+<div class="edu-card reveal">
+<h3>Degree &amp; Field</h3>
+<p class="school">University Name</p>
+<p class="meta">Year of graduation<br>Honors / GPA<br>City, Country</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================== AWARDS ===================== -->
+<section id="awards">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow">Recognition</span><h2>Honors &amp; Awards</h2></div>
+<div class="awards">
+<div class="award reveal">
+<div><h4>Award or Honor Name</h4><p class="by">Granting organization</p></div>
+<span class="yr">2025</span>
+</div>
+<div class="award reveal">
+<div><h4>Fellowship or Grant</h4><p class="by">Granting organization</p></div>
+<span class="yr">2023–2024</span>
+</div>
+<div class="award reveal">
+<div><h4>Scholarship or Distinction</h4><p class="by">Granting organization</p></div>
+<span class="yr">2022</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+<div class="wrap reveal">
+<span class="eyebrow">Get in touch</span>
+<h2>Let's work together</h2>
+<p>I'm always open to engaging discussions, collaborative ideas, and exciting opportunities. Feel free to reach out.</p>
+<a href="mailto:you@yourdomain.com" class="contact-btn">Say Hello</a>
+<div class="socials">
+<a href="#">LinkedIn</a>
+<a href="#">GitHub</a>
+<a href="#">Twitter / X</a>
+<a href="#">Google Scholar</a>
+</div>
+</div>
+</section>
+<footer>© <span id="year"></span> Your Name. All rights reserved.</footer>
 <script>
-
-function predict(){
-
-    let payload = {
-
-        burnout_risk:
-
-            Number(document.getElementById("burnout_risk").value),
-
-        social_media_hours:
-
-            Number(document.getElementById("social_media_hours").value),
-
-        app_switch_frequency:
-
-            Number(document.getElementById("app_switch_frequency").value),
-
-        distraction_burden_work:
-
-            Number(document.getElementById("distraction_burden_work").value),
-
-        deep_work_hours:
-
-            Number(document.getElementById("deep_work_hours").value),
-
-        focus_sessions:
-
-            Number(document.getElementById("focus_sessions").value),
-
-        concentration_score:
-
-            Number(document.getElementById("concentration_score").value),
-
-        task_completion_rate:
-
-            Number(document.getElementById("task_completion_rate").value),
-
-        motivation_level:
-
-            Number(document.getElementById("motivation_level").value)
-
-    };
-
-    fetch("https://digital-burnout-productivity-analytics.onrender.com/predict", {
-
-        method:"POST",
-
-        headers:{
-
-            "Content-Type":"application/json"
-
-        },
-
-        body:JSON.stringify(payload)
-
-    })
-
-    .then(response => response.json())
-
-    .then(data => {
-
-        document.getElementById("result").innerText =
-
-            "Predicted Productivity: " +
-
-            data.prediction.toFixed(2);
-
-    })
-
-    .catch(error => {
-
-        document.getElementById("result").innerText =
-
-            "Error connecting to model";
-
-        console.log(error);
-
-    });
-
-}
+ // sticky header border
+ const header = document.getElementById('top');
+ addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10));
+ // mobile menu
+ const burger = document.getElementById('burger');
+ const navLinks = document.getElementById('navLinks');
+ burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+ // scroll reveal
+ const io = new IntersectionObserver((entries) => {
+   entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+ }, { threshold:.12 });
+ document.querySelectorAll('.reveal').forEach((el,i) => {
+   el.style.transitionDelay = (i % 4 * 0.08) + 's';
+   io.observe(el);
+ });
+ // year
+ document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
- 
