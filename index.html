@@ -13,6 +13,9 @@
 <meta property="og:url" content="https://www.olabam.com" />
 <!-- <meta property="og:image" content="https://www.olabam.com/profilepic.jpg" /> -->
 <link rel="canonical" href="https://www.olabam.com" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -69,7 +72,9 @@ header{position:fixed;top:0;left:0;right:0;z-index:50;
   border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
 header.scrolled{border-color:var(--line)}
 nav{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:var(--max);margin:0 auto;padding:0 28px}
-.logo{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+.logo{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:600;letter-spacing:-.02em;display:flex;align-items:center}
+.logo img{height:42px;width:auto;display:block;transition:transform .3s}
+.logo:hover img{transform:scale(1.06)}
 .logo span{color:var(--accent)}
 .nav-links{display:flex;gap:34px;align-items:center}
 .nav-links a{font-size:.9rem;color:var(--ink-soft);position:relative;transition:color .2s}
@@ -216,7 +221,7 @@ footer{background:var(--accent-2);color:#9fb1a7;text-align:center;padding:30px 0
 <!-- ===================== NAV ===================== -->
 <header id="top">
 <nav class="wrap">
-<a href="olabam.com" class="logo"><img src="Logo.jpg" alt="Olamide Bamigbola"></span></a>
+<a href="#top" class="logo" aria-label="OLABAM — home"><img src="logo-nav.png" alt="OLABAM" /></a>
 <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 <div class="nav-links" id="navLinks">
 <a href="#about">About</a>
