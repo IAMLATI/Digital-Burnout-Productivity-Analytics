@@ -1,176 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Productivity Predictor</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Digital Burnout &amp; Productivity Predictor — Olamide Bamigbola</title>
+<meta name="description" content="An interactive regression model predicting workplace productivity from digital-behaviour and wellbeing signals." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 
-body{
+ :root{
 
-    font-family: Arial, sans-serif;
+   --ink:#1a1714;
 
-    background:#f4f6f8;
+   --ink-soft:#5c554d;
 
-    text-align:center;
+   --paper:#f4f0e9;
 
-    margin-top:50px;
+   --paper-2:#ece7dd;
 
-}
+   --line:#d8d0c2;
 
-.container{
+   --accent:#9a3b1b;
 
-    background:white;
+   --accent-2:#244536;
 
-    width:400px;
+   --max:1180px;
 
-    margin:auto;
+ }
 
-    padding:30px;
+ *{box-sizing:border-box;margin:0;padding:0}
 
-    border-radius:10px;
+ html{scroll-behavior:smooth}
 
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
+ body{
 
-}
+   font-family:"Spline Sans",system-ui,sans-serif;
 
-input{
+   background:var(--paper);color:var(--ink);line-height:1.6;
 
-    width:90%;
+   -webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;
 
-    padding:10px;
+ }
 
-    margin:8px 0;
+ h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.05;letter-spacing:-.02em}
 
-}
+ a{color:inherit;text-decoration:none}
 
-button{
+ ::selection{background:var(--accent);color:var(--paper)}
 
-    width:95%;
+ .eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:600}
 
-    padding:12px;
+ /* animated background */
 
-    background:#007bff;
+ .bg-mesh{position:fixed;inset:0;z-index:-3;overflow:hidden}
 
-    color:white;
+ .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;will-change:transform}
 
-    border:none;
+ .blob.b1{width:46vw;height:46vw;background:rgba(154,59,27,.22);top:-10%;right:-8%;animation:f1 22s ease-in-out infinite}
 
-    cursor:pointer;
+ .blob.b2{width:40vw;height:40vw;background:rgba(36,69,54,.20);bottom:-12%;left:-10%;animation:f2 26s ease-in-out infinite}
 
-}
+ .blob.b3{width:30vw;height:30vw;background:rgba(154,59,27,.12);top:40%;left:40%;animation:f3 30s ease-in-out infinite}
 
-button:hover{
+ @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6%,8%) scale(1.12)}}
 
-    background:#0056b3;
+ @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8%,-6%) scale(1.1)}}
 
-}
+ @keyframes f3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-10%,-10%) scale(.9)}}
 
-#result{
+ .grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.05;
 
-    margin-top:20px;
+   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-    font-size:20px;
+ /* custom cursor */
 
-    font-weight:bold;
+ .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:70;transform:translate(-50%,-50%);mix-blend-mode:difference}
 
-}
+ .cursor-dot{width:7px;height:7px;background:#fff}
+
+ .cursor-ring{width:38px;height:38px;border:1.5px solid #fff;transition:width .25s,height .25s,background .25s}
+
+ .cursor-ring.grow{width:64px;height:64px;background:rgba(255,255,255,.12)}
+
+ @media(hover:none){.cursor-dot,.cursor-ring{display:none}}
+
+ .topbar{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;display:flex;align-items:center;justify-content:space-between;
+
+   padding:0 28px;background:rgba(244,240,233,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+
+ .logo{font-family:"Fraunces",serif;font-size:1.15rem;font-weight:600}
+
+ .logo span{color:var(--accent)}
+
+ .back{font-size:.9rem;color:var(--ink-soft);transition:color .2s}
+
+ .back:hover{color:var(--accent)}
+
+ .shell{max-width:920px;margin:0 auto;padding:120px 28px 80px;display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+
+ .intro{position:sticky;top:110px}
+
+ .intro h1{font-size:clamp(2.2rem,5vw,3.2rem);margin:.4rem 0 1rem}
+
+ .intro p{color:var(--ink-soft);font-size:1.05rem;margin-bottom:1.4rem;max-width:38ch}
+
+ .meta-tags{display:flex;flex-wrap:wrap;gap:8px}
+
+ .tag{font-size:.78rem;padding:6px 12px;border-radius:20px;background:var(--paper-2);border:1px solid var(--line);color:var(--ink-soft)}
+
+ .card{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:16px;
+
+   padding:34px;box-shadow:0 24px 50px rgba(26,23,20,.08)}
+
+ .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+
+ .field{display:flex;flex-direction:column;gap:6px}
+
+ .field label{font-size:.78rem;letter-spacing:.04em;color:var(--ink-soft);font-weight:500}
+
+ .field input{font-family:inherit;font-size:1rem;padding:11px 13px;border:1px solid var(--line);border-radius:10px;
+
+   background:var(--paper);color:var(--ink);transition:border-color .2s,box-shadow .2s,transform .2s}
+
+ .field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(154,59,27,.12)}
+
+ .field input::placeholder{color:#b3a99a}
+
+ .predict-btn{margin-top:24px;width:100%;padding:15px;border:none;border-radius:30px;background:var(--ink);color:var(--paper);
+
+   font-family:inherit;font-size:1.02rem;font-weight:600;cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s;will-change:transform}
+
+ .predict-btn:hover{background:var(--accent)}
+
+ .predict-btn:disabled{opacity:.65;cursor:wait}
+
+ .result{margin-top:24px;min-height:96px;border-radius:14px;border:1px dashed var(--line);
+
+   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;
+
+   transition:border-color .3s,background .3s}
+
+ .result.show{border-style:solid;border-color:var(--accent-2);background:var(--paper-2)}
+
+ .result.error{border-color:var(--accent);background:rgba(154,59,27,.06)}
+
+ .result .label{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+ .result .score{font-family:"Fraunces",serif;font-size:3rem;color:var(--accent-2);line-height:1;margin-top:6px}
+
+ .result .placeholder{color:var(--ink-soft);font-style:italic}
+
+ .result.error .score{font-size:1.2rem;color:var(--accent);font-family:"Spline Sans",sans-serif;font-style:italic}
+
+ .spinner{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+
+ @keyframes spin{to{transform:rotate(360deg)}}
+
+ .hint{font-size:.82rem;color:var(--ink-soft);margin-top:14px;font-style:italic;text-align:center}
+
+ .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+
+ .reveal.in{opacity:1;transform:none}
+
+ @media(max-width:780px){
+
+   .shell{grid-template-columns:1fr;gap:28px;padding-top:96px}
+
+   .intro{position:static}
+
+ }
+
+ @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="container">
-<h2>Productivity Predictor</h2>
-<input type="number" id="burnout_risk" placeholder="Burnout Risk">
-<input type="number" id="social_media_hours" placeholder="Social Media Hours">
-<input type="number" id="app_switch_frequency" placeholder="App Switch Frequency">
-<input type="number" id="distraction_burden_work" placeholder="Distraction Burden Work">
-<input type="number" id="deep_work_hours" placeholder="Deep Work Hours">
-<input type="number" id="focus_sessions" placeholder="Focus Sessions">
-<input type="number" id="concentration_score" placeholder="Concentration Score">
-<input type="number" id="task_completion_rate" placeholder="Task Completion Rate">
-<input type="number" id="motivation_level" placeholder="Motivation Level">
-<button onclick="predict()">Predict</button>
-<div id="result"></div>
+<div class="bg-mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="grain"></div>
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"></div>
+<div class="topbar">
+<a href="index.html" class="logo">Olamide<span> Bamigbola</span></a>
+<a href="index.html#projects" class="back">&larr; Back to portfolio</a>
+</div>
+<div class="shell">
+<div class="intro reveal">
+<span class="eyebrow">Live Model</span>
+<h1>Digital Burnout &amp; Productivity Predictor</h1>
+<p>Enter your daily digital-behaviour and wellbeing signals, and the regression model returns a predicted productivity score in real time.</p>
+<div class="meta-tags">
+<span class="tag">Regression</span><span class="tag">Python</span><span class="tag">Live API</span><span class="tag">Wellbeing analytics</span>
+</div>
+</div>
+<div class="card reveal">
+<div class="grid2">
+<div class="field"><label for="burnout_risk">Burnout Risk</label><input type="number" id="burnout_risk" placeholder="e.g. 5" /></div>
+<div class="field"><label for="social_media_hours">Social Media Hours</label><input type="number" id="social_media_hours" placeholder="e.g. 3" /></div>
+<div class="field"><label for="app_switch_frequency">App Switch Frequency</label><input type="number" id="app_switch_frequency" placeholder="e.g. 40" /></div>
+<div class="field"><label for="distraction_burden_work">Distraction Burden (Work)</label><input type="number" id="distraction_burden_work" placeholder="e.g. 6" /></div>
+<div class="field"><label for="deep_work_hours">Deep Work Hours</label><input type="number" id="deep_work_hours" placeholder="e.g. 4" /></div>
+<div class="field"><label for="focus_sessions">Focus Sessions</label><input type="number" id="focus_sessions" placeholder="e.g. 5" /></div>
+<div class="field"><label for="concentration_score">Concentration Score</label><input type="number" id="concentration_score" placeholder="e.g. 7" /></div>
+<div class="field"><label for="task_completion_rate">Task Completion Rate</label><input type="number" id="task_completion_rate" placeholder="e.g. 80" /></div>
+<div class="field"><label for="motivation_level">Motivation Level</label><input type="number" id="motivation_level" placeholder="e.g. 8" /></div>
+</div>
+<button class="predict-btn magnetic" id="predictBtn" onclick="predict()">Predict productivity</button>
+<div class="result" id="result">
+<span class="placeholder">Your predicted productivity will appear here.</span>
+</div>
+<p class="hint">The model is hosted on a free tier &mdash; the first prediction may take up to a minute to wake up.</p>
+</div>
 </div>
 <script>
 
+/* reveal */
+
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i*.1)+'s';io.observe(el);});
+
+/* custom cursor */
+
+const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+
+let rx=0,ry=0,mx=0,my=0;
+
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+
+(function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+document.querySelectorAll('a,button,input').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('grow'));el.addEventListener('mouseleave',()=>ring.classList.remove('grow'));});
+
+/* magnetic button */
+
+document.querySelectorAll('.magnetic').forEach(btn=>{
+
+ btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;btn.style.transform=`translate(${x*.15}px,${y*.25}px)`;});
+
+ btn.addEventListener('mouseleave',()=>btn.style.transform='');
+
+});
+
+/* prediction */
+
 function predict(){
 
-    let payload = {
+ const ids=["burnout_risk","social_media_hours","app_switch_frequency","distraction_burden_work","deep_work_hours","focus_sessions","concentration_score","task_completion_rate","motivation_level"];
 
-        burnout_risk:
+ const payload={};ids.forEach(id=>payload[id]=Number(document.getElementById(id).value));
 
-            Number(document.getElementById("burnout_risk").value),
+ const res=document.getElementById('result'),btn=document.getElementById('predictBtn');
 
-        social_media_hours:
+ res.className='result';res.innerHTML='<div class="spinner"></div><span class="placeholder" style="margin-top:12px">Predicting…</span>';
 
-            Number(document.getElementById("social_media_hours").value),
+ btn.disabled=true;btn.textContent='Predicting…';
 
-        app_switch_frequency:
+ fetch("https://digital-burnout-productivity-analytics.onrender.com/predict",{
 
-            Number(document.getElementById("app_switch_frequency").value),
+   method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)
 
-        distraction_burden_work:
+ })
 
-            Number(document.getElementById("distraction_burden_work").value),
+ .then(r=>r.json())
 
-        deep_work_hours:
+ .then(data=>{
 
-            Number(document.getElementById("deep_work_hours").value),
+   res.className='result show';
 
-        focus_sessions:
+   res.innerHTML='<span class="label">Predicted Productivity</span><span class="score">'+Number(data.prediction).toFixed(2)+'</span>';
 
-            Number(document.getElementById("focus_sessions").value),
+ })
 
-        concentration_score:
+ .catch(err=>{
 
-            Number(document.getElementById("concentration_score").value),
+   res.className='result error';
 
-        task_completion_rate:
+   res.innerHTML='<span class="score">Couldn\u2019t reach the model &mdash; please try again in a moment.</span>';
 
-            Number(document.getElementById("task_completion_rate").value),
+   console.log(err);
 
-        motivation_level:
+ })
 
-            Number(document.getElementById("motivation_level").value)
-
-    };
-
-    fetch("https://digital-burnout-productivity-analytics.onrender.com/predict", {
-
-        method:"POST",
-
-        headers:{
-
-            "Content-Type":"application/json"
-
-        },
-
-        body:JSON.stringify(payload)
-
-    })
-
-    .then(response => response.json())
-
-    .then(data => {
-
-        document.getElementById("result").innerText =
-
-            "Predicted Productivity: " +
-
-            data.prediction.toFixed(2);
-
-    })
-
-    .catch(error => {
-
-        document.getElementById("result").innerText =
-
-            "Error connecting to model";
-
-        console.log(error);
-
-    });
+ .finally(()=>{btn.disabled=false;btn.textContent='Predict productivity';});
 
 }
 </script>
